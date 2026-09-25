@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "number": "A-15",
+    "covered": true,
+    "daily_rate": 450.75
+  },
+  {
+    "id": 2,
+    "number": "B-01",
+    "covered": false,
+    "daily_rate": 300.0
+  }
+]
