@@ -1,0 +1,15 @@
+[
+  {
+    "id": 1,
+    "spot_id": 1,
+    "client_name": "Саша",
+    "client_phone": "+77779996644",
+    "car_model": "tesla",
+    "car_license_plate": "D244WQ12",
+    "start": "2000-11-22",
+    "end": "2001-11-11",
+    "days": 354,
+    "total_price": 159565,
+    "status": "active"
+  }
+]
