@@ -64,7 +64,7 @@ def test_get_booking_status() -> None:
 
 
 def test_create_and_cancel_booking() -> None:
-    bookings: list = []
+    bookings: list[Booking] = []
     spot = make_spot()
     user = make_user()
 
@@ -84,3 +84,16 @@ def test_create_and_cancel_booking() -> None:
     assert is_spot_available(
         bookings, spot, date(2026, 9, 24), date(2026, 9, 26),
     )
+
+
+def test_create_booking_invalid_period() -> None:
+    """Попытка создать бронирование с некорректным периодом должна вернуть None."""
+    bookings: list[Booking] = []
+    spot = make_spot()
+    user = make_user()
+
+    booking = create_booking(
+        bookings, spot, user, date(2026, 9, 25), date(2026, 9, 20),
+    )
+    assert booking is None
+    assert len(bookings) == 0

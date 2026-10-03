@@ -83,6 +83,9 @@ def create_booking(
     end: date,
 ) -> Optional[Booking]:
     """Создать новое бронирование."""
+    if end <= start:
+        return None
+
     if not is_spot_available(bookings, spot, start, end):
         return None
 

@@ -83,8 +83,14 @@ def check_availability(
     if spot is None:
         print("[ОШИБКА] Место не найдено.")
         return
+
     start = input_date("Дата начала (ГГГГ-ММ-ДД): ")
     end = input_date("Дата окончания (ГГГГ-ММ-ДД): ")
+
+    if start >= end:
+        print("[ОШИБКА] Дата начала должна быть раньше даты окончания.")
+        return
+
     available = is_spot_available(bookings, spot, start, end)
     print(get_booking_status(available))
 
@@ -111,6 +117,10 @@ def add_booking(
 
     start = input_date("Дата начала (ГГГГ-ММ-ДД): ")
     end = input_date("Дата окончания (ГГГГ-ММ-ДД): ")
+
+    if start >= end:
+        print("[ОШИБКА] Дата начала должна быть раньше даты окончания.")
+        return False
 
     booking = create_booking(bookings, spot, user, start, end)
     if booking is None:
