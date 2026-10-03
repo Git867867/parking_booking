@@ -56,12 +56,12 @@ def show_bookings(bookings: list[dict]) -> None:
 def show_statistics(spots: list[dict], bookings: list[dict]) -> None:
     """Показать статистику проекта."""
     active_count = 0
-    active_revenue = 0
+    active_revenue = 0.0
 
     for booking in bookings:
         if booking.get("status") == "active":
             active_count += 1
-            active_revenue += int(booking.get("total_price", 0))
+            active_revenue += float(booking.get("total_price", 0))
 
     print(f"Всего мест: {len(spots)}")
     print(f"Всего бронирований: {len(bookings)}")
@@ -81,6 +81,10 @@ def check_availability(bookings: list[dict], spots: list[dict]) -> None:
     start = input_date("Дата начала (ГГГГ-ММ-ДД): ")
     end = input_date("Дата окончания (ГГГГ-ММ-ДД): ")
 
+    if start >= end:
+        print("[ОШИБКА] Дата начала должна быть раньше даты окончания.")
+        return
+
     available = is_spot_available(bookings, spot_id, start, end)
     print(get_booking_status(available))
 
@@ -98,6 +102,10 @@ def add_booking(bookings: list[dict], spots: list[dict]) -> bool:
 
     start = input_date("Дата начала (ГГГГ-ММ-ДД): ")
     end = input_date("Дата окончания (ГГГГ-ММ-ДД): ")
+
+    if start >= end:
+        print("[ОШИБКА] Дата начала должна быть раньше даты окончания.")
+        return False
 
     client_name = input_non_empty("Клиент: ")
     client_phone = input_non_empty("Телефон: ")

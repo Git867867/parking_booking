@@ -8,6 +8,7 @@ from bookings import (
     create_booking,
     get_booking_status,
     is_spot_available,
+    next_booking_id,
 )
 
 
@@ -22,6 +23,12 @@ def test_get_booking_status() -> None:
     """Статус брони возвращается текстом."""
     assert get_booking_status(True) == "Бронирование доступно"
     assert get_booking_status(False) == "Бронирование недоступно"
+
+
+def test_next_booking_id() -> None:
+    """Следующий ID вычисляется по максимальному."""
+    bookings = [{"id": 1}, {"id": 5}]
+    assert next_booking_id(bookings) == 6
 
 
 def test_create_and_cancel_booking() -> None:
@@ -41,7 +48,7 @@ def test_create_and_cancel_booking() -> None:
     )
 
     assert booking is not None
-    assert booking["total_price"] == 2253
+    assert booking["total_price"] == 2253.75
 
     assert not is_spot_available(
         bookings, 1, date(2026, 9, 24), date(2026, 9, 26),

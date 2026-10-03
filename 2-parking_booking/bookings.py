@@ -84,7 +84,7 @@ def create_booking(
         "start": start.isoformat(),
         "end": end.isoformat(),
         "days": days,
-        "total_price": int(days * daily_rate),
+        "total_price": round(days * daily_rate, 2),
         "status": "active",
     }
 
