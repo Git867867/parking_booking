@@ -1,0 +1,10 @@
+[
+  {
+    "id": 1,
+    "spot_id": 1,
+    "user_id": 1,
+    "start": "2026-09-20",
+    "end": "2026-09-25",
+    "is_cancelled": false
+  }
+]
