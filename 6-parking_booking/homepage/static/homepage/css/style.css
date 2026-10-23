@@ -1,0 +1,29 @@
+body {
+    min-height: 100vh;
+}
+
+.app-logo {
+    display: inline-block;
+    width: 140px;
+    height: 48px;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    border-radius: 8px;
+    background: #0d6efd;
+}
+
+.spot-card {
+    border-radius: 8px;
+}
+
+.booking-status {
+    font-weight: 600;
+}
+
+.booking-status-active {
+    letter-spacing: 0.02em;
+}
+
+.booking-status-cancelled {
+    opacity: 0.85;
+}

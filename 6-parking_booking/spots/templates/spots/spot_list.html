@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Парковочные места – Парковка{% endblock %}
+
+{% block content %}
+<h1>Парковочные места</h1>
+<p>Всего мест: {{ spots|length }}</p>
+
+<div class="row">
+    {% for spot in spots %}
+    <div class="col-md-6">
+        {% include "spots/includes/spot_card.html" %}
+    </div>
+    {% empty %}
+    <p>Места не найдены.</p>
+    {% endfor %}
+</div>
+{% endblock %}

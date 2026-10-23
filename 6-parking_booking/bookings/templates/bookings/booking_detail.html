@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}
+{% if booking %}Бронирование №{{ booking.id }} – Парковка{% else %}Бронирование не найдено – Парковка{% endif %}
+{% endblock %}
+
+{% block content %}
+{% if booking %}
+<div class="card">
+    <div class="card-body">
+        <h1 class="card-title h4">Бронирование №{{ booking.id }}</h1>
+        <p class="card-text"><strong>Место:</strong> {{ booking.spot.number }}</p>
+        <p class="card-text"><strong>Клиент:</strong> {{ booking.user.name }}</p>
+        <p class="card-text">
+            <strong>Период:</strong>
+            {{ booking.start|date:"d.m.Y" }} – {{ booking.end|date:"d.m.Y" }}
+        </p>
+        <p class="card-text"><strong>Дней:</strong> {{ booking.days }}</p>
+        <p class="card-text"><strong>Стоимость:</strong> {{ booking.total_price }} руб.</p>
+        <p class="card-text">
+            <strong>Статус:</strong>
+            {% include "bookings/includes/booking_status.html" %}
+        </p>
+    </div>
+</div>
+{% else %}
+<h1 class="text-danger">Бронирование не найдено</h1>
+{% endif %}
+
+<a href="{% url 'bookings:list' %}" class="btn btn-outline-secondary mt-3">← к списку бронирований</a>
+{% endblock %}

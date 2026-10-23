@@ -1,0 +1,5 @@
+{% if booking.is_cancelled %}
+<span class="badge bg-secondary booking-status booking-status-cancelled">отменено</span>
+{% else %}
+<span class="badge bg-success booking-status booking-status-active">активно</span>
+{% endif %}

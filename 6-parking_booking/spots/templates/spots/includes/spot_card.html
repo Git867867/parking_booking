@@ -1,0 +1,11 @@
+<article class="card spot-card mb-3">
+    <div class="card-body">
+        <h2 class="card-title h5">Место {{ spot.number|default:"Без номера" }}</h2>
+        <p class="card-text">
+            Тип:
+            {% if spot.covered %}Крытое{% else %}Открытое{% endif %}
+        </p>
+        <p class="card-text">Цена: {{ spot.daily_rate }} руб./сутки</p>
+        <a href="{% url 'spots:detail' spot.id %}" class="btn btn-primary">Подробнее</a>
+    </div>
+</article>

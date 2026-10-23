@@ -1,0 +1,10 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'homepage:index' %}">Parking</a>
+        <div class="navbar-nav">
+            <a class="nav-link" href="{% url 'homepage:index' %}">Главная</a>
+            <a class="nav-link" href="{% url 'spots:list' %}">Места</a>
+            <a class="nav-link" href="{% url 'bookings:list' %}">Бронирования</a>
+        </div>
+    </div>
+</nav>

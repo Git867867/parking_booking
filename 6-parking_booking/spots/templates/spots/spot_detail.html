@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}
+{% if spot %}Место {{ spot.number }} – Парковка{% else %}Место не найдено – Парковка{% endif %}
+{% endblock %}
+
+{% block content %}
+{% if spot %}
+<div class="card">
+    <div class="card-body">
+        <h1 class="card-title h4">Парковочное место {{ spot.number }}</h1>
+        <p class="card-text"><strong>ID:</strong> {{ spot.id }}</p>
+        <p class="card-text"><strong>Номер:</strong> {{ spot.number|default:"Без номера" }}</p>
+        <p class="card-text">
+            <strong>Тип:</strong>
+            {% if spot.covered %}Крытое{% else %}Открытое{% endif %}
+        </p>
+        <p class="card-text"><strong>Цена:</strong> {{ spot.daily_rate }} руб./сутки</p>
+        <p class="card-text">
+            <strong>Статус на сегодня:</strong>
+            {% if available %}
+            <span class="badge bg-success">свободно сегодня</span>
+            {% else %}
+            <span class="badge bg-danger">занято сегодня</span>
+            {% endif %}
+        </p>
+    </div>
+</div>
+{% else %}
+<h1 class="text-danger">Парковочное место не найдено</h1>
+{% endif %}
+
+<a href="{% url 'spots:list' %}" class="btn btn-outline-secondary mt-3">← к списку мест</a>
+{% endblock %}
