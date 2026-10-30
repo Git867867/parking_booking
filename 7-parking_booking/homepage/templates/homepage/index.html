@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Главная{% endblock %}
+{% block content %}
+<h1>Система бронирования парковочных мест</h1>
+<p>Добро пожаловать в систему управления парковкой.</p>
+<div class="row mt-4">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Парковочные места</h5>
+                <p class="card-text">Просмотр списка мест и поиск свободных.</p>
+                <a href="{% url 'spots:list' %}" class="btn btn-primary">Перейти</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Бронирования</h5>
+                <p class="card-text">Список активных бронирований.</p>
+                <a href="{% url 'bookings:list' %}" class="btn btn-primary">Перейти</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Статистика</h5>
+                <p class="card-text">Статистика по бронированиям.</p>
+                <a href="{% url 'bookings:statistics' %}" class="btn btn-primary">Перейти</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

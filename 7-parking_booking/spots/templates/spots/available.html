@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Свободные места{% endblock %}
+{% block content %}
+<h1>Поиск свободных мест</h1>
+<form method="get" class="mb-4">
+    <label for="date">Дата:</label>
+    <input type="date" id="date" name="date" class="form-control w-auto d-inline-block" value="{{ booking_date }}">
+    <button type="submit" class="btn btn-primary">Найти</button>
+</form>
+{% if booking_date %}
+<h2>Свободные места на {{ booking_date }}</h2>
+<div class="row">
+    {% for spot in spots %}
+    <div class="col-md-4 mb-3">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Место {{ spot.number }}</h5>
+                <p class="card-text">Тип: {% if spot.covered %}Крытое{% else %}Открытое{% endif %}</p>
+                <p class="card-text">Цена: {{ spot.daily_rate }} руб./сутки</p>
+                <a href="{% url 'spots:detail' spot.id %}" class="btn btn-sm btn-outline-primary">Подробнее</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <p>На выбранную дату свободных мест нет.</p>
+    {% endfor %}
+</div>
+{% endif %}
+{% endblock %}

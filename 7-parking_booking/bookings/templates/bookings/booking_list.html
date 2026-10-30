@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Бронирования{% endblock %}
+{% block content %}
+<h1>Активные бронирования</h1>
+<p>Всего: {{ bookings|length }}</p>
+<ul class="list-group">
+    {% for booking in bookings %}
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        <a href="{% url 'bookings:detail' booking.id %}">
+            {{ booking.spot_number }}, {{ booking.user_name }},
+            {{ booking.start }} – {{ booking.end }}
+        </a>
+        <span class="badge bg-success">активно</span>
+    </li>
+    {% empty %}
+    <li class="list-group-item">Нет активных бронирований.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

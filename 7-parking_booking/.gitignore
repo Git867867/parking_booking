@@ -1,0 +1,21 @@
+venv/
+.venv/
+env/
+ENV/
+
+
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+db.sqlite3
+
+# Файлы IDE и ОС
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Файлы настроек с секретами
+.env

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Бронирование №{{ booking.id }}{% endblock %}
+{% block content %}
+{% if booking %}
+<div class="card">
+    <div class="card-body">
+        <h1 class="card-title h4">Бронирование №{{ booking.id }}</h1>
+        <p><strong>Место:</strong> {{ booking.spot_number }}</p>
+        <p><strong>Клиент:</strong> {{ booking.user_name }}</p>
+        <p><strong>Период:</strong> {{ booking.start }} – {{ booking.end }}</p>
+        <p><strong>Цена:</strong> {{ booking.daily_rate }} руб./сутки</p>
+        <p><strong>Статус:</strong>
+            {% if booking.is_cancelled %}<span class="badge bg-secondary">отменено</span>
+            {% else %}<span class="badge bg-success">активно</span>{% endif %}
+        </p>
+    </div>
+</div>
+{% else %}
+<h1 class="text-danger">Бронирование не найдено</h1>
+{% endif %}
+<a href="{% url 'bookings:list' %}" class="btn btn-outline-secondary mt-3">← к списку</a>
+{% endblock %}

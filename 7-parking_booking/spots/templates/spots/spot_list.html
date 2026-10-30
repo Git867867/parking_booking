@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Парковочные места{% endblock %}
+
+{% block content %}
+<h1>Парковочные места</h1>
+<p>Всего: {{ spots|length }}</p>
+
+<p>
+    <a href="{% url 'spots:list' %}" class="btn btn-outline-secondary btn-sm">Все места</a>
+    <a href="{% url 'spots:list' %}?covered=1" class="btn btn-outline-secondary btn-sm">Крытые</a>
+    <a href="{% url 'spots:list' %}?covered=0" class="btn btn-outline-secondary btn-sm">Открытые</a>
+    <a href="{% url 'spots:available' %}" class="btn btn-outline-primary btn-sm">Найти свободное место</a>
+</p>
+
+<div class="row">
+    {% for spot in spots %}
+    <div class="col-md-6 mb-3">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Место {{ spot.number }}</h5>
+                <p class="card-text">
+                    Тип: {% if spot.covered %}Крытое{% else %}Открытое{% endif %}
+                </p>
+                <p class="card-text">Цена: {{ spot.daily_rate }} руб./сутки</p>
+                <a href="{% url 'spots:detail' spot.id %}" class="btn btn-primary">Подробнее</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <p>Места не найдены.</p>
+    {% endfor %}
+</div>
+{% endblock %}
