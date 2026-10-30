@@ -1,0 +1,119 @@
+{% extends "homepage/base.html" %}
+
+{% block title %}Бронирования{% endblock %}
+
+{% block content %}
+<h1>Активные бронирования</h1>
+
+<form method="get" class="mb-4">
+    <div class="row g-3 align-items-end">
+        <div class="col-md-2">
+            <label for="date" class="form-label">Дата</label>
+            <input type="date" id="date" name="date" class="form-control" value="{{ booking_date }}">
+        </div>
+        <div class="col-md-2">
+            <label for="spot" class="form-label">Место</label>
+            <select id="spot" name="spot" class="form-select">
+                <option value="">Все места</option>
+                {% for spot in spots %}
+                <option value="{{ spot.pk }}" {% if selected_spot == spot.pk|stringformat:"s" %}selected{% endif %}>{{ spot.number }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-2">
+            <label for="spot_number" class="form-label">Поиск места</label>
+            <input type="text" id="spot_number" name="spot_number" class="form-control" value="{{ spot_number }}">
+        </div>
+        <div class="col-md-2">
+            <label for="user" class="form-label">Пользователь</label>
+            <select id="user" name="user" class="form-select">
+                <option value="">Все пользователи</option>
+                {% for user in users %}
+                <option value="{{ user.pk }}" {% if selected_user == user.pk|stringformat:"s" %}selected{% endif %}>{{ user.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-2">
+            <label for="user_name" class="form-label">Поиск по имени</label>
+            <input type="text" id="user_name" name="user_name" class="form-control" value="{{ user_name }}">
+        </div>
+        <div class="col-md-2">
+            <label for="q" class="form-label">Общий поиск</label>
+            <input type="text" id="q" name="q" class="form-control" value="{{ q }}" placeholder="Место или имя">
+        </div>
+        <div class="col-md-2">
+            <label for="sort" class="form-label">Сортировать по</label>
+            <select id="sort" name="sort" class="form-select">
+                <option value="date" {% if sort == "date" %}selected{% endif %}>Дате</option>
+                <option value="spot" {% if sort == "spot" %}selected{% endif %}>Месту</option>
+                <option value="user" {% if sort == "user" %}selected{% endif %}>Пользователю</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-primary">Найти</button>
+            <a href="{% url 'bookings:list' %}" class="btn btn-outline-secondary">Сбросить</a>
+        </div>
+    </div>
+</form>
+
+{% if error %}
+<div class="alert-danger">{{ error }}</div>
+{% endif %}
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Место</th>
+            <th>Пользователь</th>
+            <th>Начало</th>
+            <th>Окончание</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for booking in bookings %}
+        <tr>
+            <td>{{ booking.id }}</td>
+            <td>{{ booking.spot_number }}</td>
+            <td>{{ booking.user_name }}</td>
+            <td>{{ booking.start|date:"d.m.Y" }}</td>
+            <td>{{ booking.end|date:"d.m.Y" }}</td>
+            <td><a href="{% url 'bookings:detail' booking.id %}" class="btn btn-sm btn-outline-primary">Подробнее</a></td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="6">Бронирования не найдены.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% if page_obj.paginator.num_pages > 1 %}
+<nav aria-label="Навигация по страницам">
+    <ul class="pagination">
+        {% if page_obj.has_previous %}
+        <li class="page-item">
+            <a class="page-link" href="{% querystring page=page_obj.previous_page_number %}">Назад</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled"><span class="page-link">Назад</span></li>
+        {% endif %}
+
+        {% for page_number in page_obj.paginator.page_range %}
+        {% if page_number == page_obj.number %}
+        <li class="page-item active" aria-current="page"><span class="page-link">{{ page_number }}</span></li>
+        {% else %}
+        <li class="page-item"><a class="page-link" href="{% querystring page=page_number %}">{{ page_number }}</a></li>
+        {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+        <li class="page-item">
+            <a class="page-link" href="{% querystring page=page_obj.next_page_number %}">Далее</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled"><span class="page-link">Далее</span></li>
+        {% endif %}
+    </ul>
+</nav>
+{% endif %}
+{% endblock %}

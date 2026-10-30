@@ -1,0 +1,49 @@
+﻿{% extends "homepage/base.html" %}
+
+{% block title %}Парковочные места{% endblock %}
+
+{% block content %}
+<h1>Парковочные места</h1>
+
+<form method="get" class="mb-3">
+    <input type="text" name="search" value="{{ search }}" placeholder="Поиск по номеру места" style="width: 300px; padding: 7px;">
+    <button type="submit" class="btn btn-primary">Найти</button>
+    <a href="{% url 'spots:list' %}" class="btn btn-secondary">Сбросить</a>
+</form>
+
+<div class="btn-group">
+    <a href="{% url 'spots:list' %}" class="btn btn-outline-secondary {% if not covered %}active{% endif %}">Все</a>
+    <a href="{% url 'spots:list' %}?covered=1" class="btn btn-outline-secondary {% if covered == '1' %}active{% endif %}">Крытые</a>
+    <a href="{% url 'spots:list' %}?covered=0" class="btn btn-outline-secondary {% if covered == '0' %}active{% endif %}">Открытые</a>
+    <a href="{% url 'spots:available' %}" class="btn btn-primary ms-2">Поиск свободных мест</a>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>Номер</th>
+            <th>Тип</th>
+            <th>Стоимость/день</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for spot in spots %}
+        <tr>
+            <td>{{ spot.number }}</td>
+            <td>
+                {% if spot.covered %}
+                <span class="badge bg-success">Крытое</span>
+                {% else %}
+                <span class="badge bg-secondary">Открытое</span>
+                {% endif %}
+            </td>
+            <td>{{ spot.daily_rate }} ₽</td>
+            <td><a href="{% url 'spots:detail' spot.pk %}" class="btn btn-sm btn-outline-primary">Подробнее</a></td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="4">Места не найдены.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

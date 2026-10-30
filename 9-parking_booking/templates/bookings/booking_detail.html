@@ -1,0 +1,24 @@
+﻿{% extends "homepage/base.html" %}
+
+{% block title %}Бронирование №{{ booking.pk }}{% endblock %}
+
+{% block content %}
+<h1>Бронирование №{{ booking.pk }}</h1>
+<div class="card">
+    <p><strong>Место:</strong> {{ booking.spot.number }}</p>
+    <p><strong>Стоимость за день:</strong> {{ booking.spot.daily_rate }} ₽</p>
+    <p><strong>Пользователь:</strong> {{ booking.user.name }}</p>
+    <p><strong>Телефон:</strong> {{ booking.user.phone }}</p>
+    <p><strong>Дата начала:</strong> {{ booking.start|date:"d.m.Y" }}</p>
+    <p><strong>Дата окончания:</strong> {{ booking.end|date:"d.m.Y" }}</p>
+    <p>
+        <strong>Статус:</strong>
+        {% if booking.is_cancelled %}
+        <span class="badge bg-danger">Отменено</span>
+        {% else %}
+        <span class="badge bg-success">Активно</span>
+        {% endif %}
+    </p>
+    <a href="{% url 'bookings:list' %}" class="btn btn-secondary">← К списку бронирований</a>
+</div>
+{% endblock %}

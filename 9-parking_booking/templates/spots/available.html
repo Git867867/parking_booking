@@ -1,0 +1,43 @@
+﻿{% extends "homepage/base.html" %}
+
+{% block title %}Свободные места{% endblock %}
+
+{% block content %}
+<h1>Свободные парковочные места</h1>
+
+<form method="get" class="mb-4">
+    <label for="date" class="form-label">Дата:</label>
+    <input type="date" id="date" name="date" class="form-control" value="{{ booking_date }}" style="width: 220px;">
+    <button type="submit" class="btn btn-primary">Найти</button>
+</form>
+
+{% if error %}
+<div class="alert-danger">{{ error }}</div>
+{% endif %}
+
+{% if booking_date and not error %}
+<h2>Дата: {{ booking_date }}</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Номер</th>
+            <th>Тип</th>
+            <th>Стоимость/день</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for spot in spots %}
+        <tr>
+            <td>{{ spot.number }}</td>
+            <td>{% if spot.covered %}Крытое{% else %}Открытое{% endif %}</td>
+            <td>{{ spot.daily_rate }} ₽</td>
+            <td><a href="{% url 'spots:detail' spot.pk %}" class="btn btn-sm btn-outline-primary">Подробнее</a></td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="4">На выбранную дату свободных мест нет.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+{% endblock %}

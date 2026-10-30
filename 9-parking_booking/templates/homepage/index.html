@@ -1,0 +1,33 @@
+﻿{% extends "homepage/base.html" %}
+
+{% block title %}Главная — Parking Booking{% endblock %}
+
+{% block content %}
+<div class="jumbotron">
+    <h1 class="display-4">Система бронирования парковочных мест</h1>
+    <p>Управление парковочными местами и бронированиями. ПР9 — Django ORM.</p>
+</div>
+<div class="row mt-4">
+    <div class="col-md-4">
+        <div class="card border-primary">
+            <h5 class="text-primary">Парковочные места</h5>
+            <p>Список мест, фильтрация по типу и поиск свободных мест на дату.</p>
+            <a href="{% url 'spots:list' %}" class="btn btn-primary">Перейти</a>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card border-success">
+            <h5 class="text-success">Бронирования</h5>
+            <p>Активные бронирования с фильтрацией, сортировкой и пагинацией.</p>
+            <a href="{% url 'bookings:list' %}" class="btn btn-success">Перейти</a>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card border-info">
+            <h5 class="text-info">Статистика</h5>
+            <p>Общие показатели, средняя и максимальная стоимость, популярные места.</p>
+            <a href="{% url 'bookings:statistics' %}" class="btn btn-info">Перейти</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

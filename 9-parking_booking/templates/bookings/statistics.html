@@ -1,0 +1,68 @@
+﻿{% extends "homepage/base.html" %}
+
+{% block title %}Статистика бронирований{% endblock %}
+
+{% block content %}
+<h1>Статистика бронирований</h1>
+
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card" style="background:#0d6efd;color:#fff;">
+            <h5>Всего активных</h5>
+            <p class="display-6">{{ total_bookings }}</p>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card" style="background:#198754;color:#fff;">
+            <h5>Средняя стоимость</h5>
+            <p class="display-6">{{ avg_rate|floatformat:2 }} ₽</p>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card" style="background:#0dcaf0;color:#000;">
+            <h5>Максимальная стоимость</h5>
+            <p class="display-6">{{ max_rate|floatformat:2 }} ₽</p>
+        </div>
+    </div>
+</div>
+
+<h2>Количество бронирований по местам</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Место</th>
+            <th>Количество бронирований</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in statistics %}
+        <tr>
+            <td>{{ item.spot_number }}</td>
+            <td>{{ item.bookings_count }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="2">Места отсутствуют.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% if popular %}
+<h2>Популярные места (больше 1 бронирования)</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Место</th>
+            <th>Количество бронирований</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in popular %}
+        <tr>
+            <td>{{ item.spot_number }}</td>
+            <td>{{ item.bookings_count }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+{% endblock %}

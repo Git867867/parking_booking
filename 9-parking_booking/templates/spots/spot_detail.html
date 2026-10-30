@@ -1,0 +1,21 @@
+﻿{% extends "homepage/base.html" %}
+
+{% block title %}Место {{ spot.number }}{% endblock %}
+
+{% block content %}
+<h1>Парковочное место {{ spot.number }}</h1>
+<div class="card">
+    <p><strong>Номер:</strong> {{ spot.number }}</p>
+    <p><strong>Тип:</strong> {% if spot.covered %}Крытое{% else %}Открытое{% endif %}</p>
+    <p><strong>Стоимость за день:</strong> {{ spot.daily_rate }} ₽</p>
+    <p>
+        <strong>Статус на сегодня:</strong>
+        {% if available %}
+        <span class="badge bg-success">Свободно</span>
+        {% else %}
+        <span class="badge bg-danger">Занято</span>
+        {% endif %}
+    </p>
+    <a href="{% url 'spots:list' %}" class="btn btn-secondary">← К списку мест</a>
+</div>
+{% endblock %}

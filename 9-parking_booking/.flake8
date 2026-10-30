@@ -1,0 +1,15 @@
+[flake8]
+max-line-length = 120
+exclude = 
+    .git,
+    __pycache__,
+    migrations,
+    venv,
+    .venv,
+    data,
+    manage.py,
+    dump.py,
+    fix_all.py
+per-file-ignores =
+    db/import_sqlite_to_orm.py: E402
+    create_test_data.py: E402
