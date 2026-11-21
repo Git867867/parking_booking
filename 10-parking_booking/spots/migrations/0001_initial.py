@@ -1,0 +1,25 @@
+from django.db import migrations, models
+
+
+class Migration(migrations.Migration):
+
+    initial = True
+
+    dependencies = []
+
+    operations = [
+        migrations.CreateModel(
+            name='Spot',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('number', models.CharField(max_length=10, verbose_name='Номер места')),
+                ('covered', models.BooleanField(default=False, verbose_name='Крытое место')),
+                ('daily_rate', models.DecimalField(decimal_places=2, max_digits=10, verbose_name='Стоимость за день')),
+            ],
+            options={
+                'verbose_name': 'Парковочное место',
+                'verbose_name_plural': 'Парковочные места',
+                'ordering': ['number'],
+            },
+        ),
+    ]

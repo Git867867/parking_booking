@@ -1,0 +1,5 @@
+Django>=5.1,<6.2
+pytest>=7.4
+pytest-django>=4.7
+django-debug-toolbar==8.0.0
+Unidecode==1.4.0
